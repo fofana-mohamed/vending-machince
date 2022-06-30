@@ -5,15 +5,17 @@ import com.techelevator.Finance.Bank;
 import com.techelevator.Finance.Log;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class UserInput {
 
     private Scanner input = new Scanner(System.in);
+
     Log log = new Log();
 
-    public UserInput() throws FileNotFoundException {
+    public UserInput() throws IOException {
     }
 //    private final Scanner input = new Scanner(System.in);
 
@@ -115,5 +117,6 @@ public class UserInput {
 
     public void recordClosedTransaction(Bank bank) {
         log.logChange(bank.getCurrentBalance());
+        log.loadLogs();
     }
 }

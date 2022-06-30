@@ -7,13 +7,14 @@ import com.techelevator.UI.UserInput;
 import com.techelevator.UI.UserOutput;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public class VendingMachineApplication {
 
-    public void run() throws FileNotFoundException {
+    public void run() throws IOException {
 
         UserInput input = new UserInput();
         UserOutput output = new UserOutput();
@@ -21,6 +22,7 @@ public class VendingMachineApplication {
         Inventory inventory = new Inventory();
         List<String> itemsWanted = new ArrayList<>();
         SalesReport salesReport = new SalesReport();
+        BigDecimal totalSales = BigDecimal.ZERO;
 
         while(true) {
             // display home screen and get user choice
@@ -44,7 +46,10 @@ public class VendingMachineApplication {
                     // Select Product
                     else if(purchaseChoice == 2) {
                         String item = input.selectProduct(inventory, bank);
-                        if(item != "") itemsWanted.add(item);
+                        if(item != "") {
+                            itemsWanted.add(item);
+                            totalSales = totalSales.add(inventory.getPrice(item));
+                        }
                     }
 
                     // Finish Transaction
@@ -58,9 +63,11 @@ public class VendingMachineApplication {
                         itemsWanted = new ArrayList<>();
                         break;
                     }
-
                     else break;
                 }
+            }
+            else if (userChoice == 4) {
+                output.displaySalesReport(inventory,salesReport,totalSales);
             }
             // Exit
             else {
