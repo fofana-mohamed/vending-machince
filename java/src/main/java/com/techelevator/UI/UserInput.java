@@ -57,9 +57,15 @@ public class UserInput {
             System.out.println("How much money would you like to input? Please input the money in whole dollar amounts.");
             String strMoney = input.nextLine();
             if(bank.isMoneyValid(strMoney)) {
-                BigDecimal money = new BigDecimal(strMoney);
-                bank.addToBalance(money);
-                return;
+                if(Integer.parseInt(strMoney) > 0){
+                    BigDecimal money = new BigDecimal(strMoney);
+                    bank.addToBalance(money);
+                    return;
+                }
+                else{
+                    System.out.println("Input not valid: please try again with a non-negative dollar amount");
+                    return;
+                }
             }
             else {
                 System.out.println("Input was not valid: please try again with a whole dollar amount");
