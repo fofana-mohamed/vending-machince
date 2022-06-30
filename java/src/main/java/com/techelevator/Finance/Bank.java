@@ -33,13 +33,13 @@ public class Bank {
         return true;
     }
 
-    public boolean finishTransaction(List<String> itemsWanted, Inventory inventory, UserOutput output){
+    public boolean finishTransaction(List<String> itemsWanted, Inventory inventory, UserOutput output, Bank bank){
         BigDecimal totalCost = BigDecimal.valueOf(0);
         for(String item: itemsWanted) {
             totalCost = totalCost.add(inventory.getPrice(item));
         }
 
-        BigDecimal change = currentBalance.subtract(totalCost);
+        BigDecimal change = bank.getCurrentBalance();
         if(change.compareTo(BigDecimal.ZERO) >= 0) {
             // Purchase complete - give change
             BigDecimal quarter = new BigDecimal("0.25");

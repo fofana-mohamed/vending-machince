@@ -22,7 +22,7 @@ public class UserInput {
             System.out.println("Input number corresponding to what you want to do:");
             System.out.println();
             String destination = input.nextLine();
-            if(destination.equals("1") || destination.equals("2") || destination.equals("3")) {
+            if(destination.equals("1") || destination.equals("2") || destination.equals("3") || destination.equals("4")) {
                 return Integer.parseInt(destination);
             }
             else System.out.println("Input was not valid: please try again");
@@ -68,7 +68,7 @@ public class UserInput {
         }
     }
 
-    public String selectProduct(Inventory inventory){
+    public String selectProduct(Inventory inventory, Bank bank){
         //UserOutput.displayItems();
         System.out.println();
         System.out.println("Which item would you like to purchase? Please input a valid slot number.");
@@ -81,6 +81,7 @@ public class UserInput {
                 }
                 else {
                     inventory.changeQuantity(slot, inventory.getQuantity(slot) - 1);
+                    bank.addToBalance(inventory.getPrice(slot).multiply(new BigDecimal(-1)));
                     System.out.println();
                     System.out.println(inventory.getSound(slot));
                     System.out.println();
