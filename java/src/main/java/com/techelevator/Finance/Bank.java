@@ -24,9 +24,13 @@ public class Bank {
         return this.currentBalance;
     }
 
-    public boolean isMoneyValid(BigDecimal money){
-        return money.equals(new BigDecimal(1)) || money.equals(new BigDecimal(2)) ||
-                money.equals(new BigDecimal(5)) || money.equals(new BigDecimal(10));
+    public boolean isMoneyValid(String money){
+        if(money == null) return false;
+
+        try{
+            int i = Integer.parseInt(money);
+        } catch (NumberFormatException nfe) {return false;}
+        return true;
     }
 
     public boolean finishTransaction(List<String> itemsWanted, Inventory inventory, UserOutput output){

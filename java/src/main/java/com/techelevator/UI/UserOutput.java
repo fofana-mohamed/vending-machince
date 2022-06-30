@@ -7,8 +7,7 @@ import com.techelevator.Finance.SalesReport;
 import java.math.BigDecimal;
 
 public class UserOutput {
-//    private Inventory inventory = new Inventory();
-//    private List<String> list = inventory.getItemList();
+
     public void displayItems(Inventory inventory) {
         for (String slot : inventory.getItemList()) {
             String name = inventory.getName(slot);
@@ -19,6 +18,8 @@ public class UserOutput {
     }
 
     public void exit() {
+        System.out.println();
+        System.out.println();
         System.out.println("Thank you for your business. Goodbye!");
     }
     public void showCurrentBalance(Bank bank) {

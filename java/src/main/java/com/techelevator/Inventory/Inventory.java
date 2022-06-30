@@ -2,10 +2,7 @@ package com.techelevator.Inventory;
 
 import java.io.File;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Inventory {
     //Instance Variable
@@ -60,7 +57,7 @@ public class Inventory {
     }
 
     public String getSound(String itemNumber) {
-        String type = numberType.get(itemNumber);
+        String type = numberType.get(itemNumber).toLowerCase(Locale.ROOT);
 
         if(type.equals("chip")) {
             return "Crunch Crunch, Yum!";
@@ -83,7 +80,7 @@ public class Inventory {
         int currentQuantity = numberQuantity.get(itemNumber);
         if (quantity > currentQuantity) {return -1;}
         else {
-            numberQuantity.put(itemNumber, numberQuantity.get(itemNumber) - quantity);
+            numberQuantity.put(itemNumber, quantity);
         }
 
         return numberQuantity.get(itemNumber);
