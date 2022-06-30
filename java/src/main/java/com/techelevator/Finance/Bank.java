@@ -40,28 +40,22 @@ public class Bank {
         }
 
         BigDecimal change = bank.getCurrentBalance();
-        if(change.compareTo(BigDecimal.ZERO) >= 0) {
-            // Purchase complete - give change
-            BigDecimal quarter = new BigDecimal("0.25");
-            BigDecimal dime = new BigDecimal("0.1");
-            BigDecimal nickel = new BigDecimal("0.05");
 
-            int numQuarters = change.divide(quarter, RoundingMode.FLOOR).intValue();
-            change = change.subtract(BigDecimal.valueOf(numQuarters).multiply(quarter));
-            int numDimes = change.divide(dime, RoundingMode.FLOOR).intValue();
-            change = change.subtract(BigDecimal.valueOf(numDimes).multiply(dime));
-            int numNickels = change.divide(nickel, RoundingMode.FLOOR).intValue();
-            change = change.subtract(BigDecimal.valueOf(numNickels).multiply(nickel));
-            BigDecimal numPennies = change.multiply(new BigDecimal(100));
+        // Purchase complete - give change
+        BigDecimal quarter = new BigDecimal("0.25");
+        BigDecimal dime = new BigDecimal("0.1");
+        BigDecimal nickel = new BigDecimal("0.05");
 
-            output.displayChange(numQuarters, numDimes, numNickels, numPennies.intValue());
-            this.currentBalance = BigDecimal.valueOf(0);
-            return true;
+        int numQuarters = change.divide(quarter, RoundingMode.FLOOR).intValue();
+        change = change.subtract(BigDecimal.valueOf(numQuarters).multiply(quarter));
+        int numDimes = change.divide(dime, RoundingMode.FLOOR).intValue();
+        change = change.subtract(BigDecimal.valueOf(numDimes).multiply(dime));
+        int numNickels = change.divide(nickel, RoundingMode.FLOOR).intValue();
+        change = change.subtract(BigDecimal.valueOf(numNickels).multiply(nickel));
+        BigDecimal numPennies = change.multiply(new BigDecimal(100));
 
-        } else {
-            System.out.println("You do not have enough money to buy all of your items. Please add more money.");
-            return false;
-        }
-
+        output.displayChange(numQuarters, numDimes, numNickels, numPennies.intValue());
+        this.currentBalance = BigDecimal.valueOf(0);
+        return true;
     }
 }

@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class UserInput {
 
-    private Scanner input = new Scanner(System.in);
+    private final Scanner input = new Scanner(System.in);
 
     public int homeScreen(){
         while(true){
@@ -77,6 +77,10 @@ public class UserInput {
             if(slot.equals(item)){
                 if(inventory.getQuantity(slot) == 0) {
                     System.out.println("Item is out stock: please pick a different item.");
+                    return "";
+                }
+                if(bank.getCurrentBalance().compareTo(inventory.getPrice(slot)) < 0) {
+                    System.out.println("You do not have enough money for this purchase.");
                     return "";
                 }
                 else {

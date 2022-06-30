@@ -44,19 +44,19 @@ public class VendingMachineApplication {
                     // Select Product
                     else if(purchaseChoice == 2) {
                         String item = input.selectProduct(inventory, bank);
-                        if(item != "") {
+                        if (!item.equals("")) {
                             itemsWanted.add(item);
                         }
                     }
 
                     // Finish Transaction
                     else if(purchaseChoice == 3){
-                        if(bank.finishTransaction(itemsWanted, inventory, output, bank)) {
-                            for(String item: itemsWanted) {
-                                salesReport.addToArchives(item, 1);
-                                totalSales = totalSales.add(inventory.getPrice(item));
-                            }
+                        bank.finishTransaction(itemsWanted, inventory, output, bank);
+                        for(String item: itemsWanted) {
+                            salesReport.addToArchives(item, 1);
+                            totalSales = totalSales.add(inventory.getPrice(item));
                         }
+
                         itemsWanted = new ArrayList<>();
                         break;
                     }
