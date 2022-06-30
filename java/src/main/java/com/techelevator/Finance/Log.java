@@ -1,46 +1,55 @@
 package com.techelevator.Finance;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.PrintWriter;
 
 import com.techelevator.Inventory.Inventory;
-import com.techelevator.application.Bank;
+import com.techelevator.Finance.Bank;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Log {
-    private PrintWriter logFile = new PrintWriter("Log.txt");
-    private LocalDateTime dateTime = LocalDateTime.now();
+
+    private File newFile = new File("log.txt");
+    private LocalDate date = LocalDate.now();
+    private LocalTime time = LocalTime.now();
     public Log() throws FileNotFoundException {
     }
 
     public void logFeed(BigDecimal amount, Bank bank) {
-        try {
-            logFile.println(dateTime + "FEED MONEY: " + amount + " " + bank.getCurrentBalance().add(amount));
+        try(FileWriter fileWriter = new FileWriter(newFile);
+            PrintWriter printWriter = new PrintWriter(fileWriter)) {
+            printWriter.println(date + " " + time + " " + "FEED MONEY: " + amount + " " + bank.getCurrentBalance().add(amount));
         }catch (Exception e) {
             System.out.println("An error occurred");
         }
     }
 
     public void logSale(String slot, Inventory inventory, Bank bank) {
-        try {
-            String name = inventory.getName(slot);
-            BigDecimal amount = bank.getCurrentBalance();
-            BigDecimal price = inventory.getPrice(slot);
-            BigDecimal change = amount.subtract(price);
+        try (FileWriter fileWriter = new FileWriter(newFile);
+             PrintWriter printWriter = new PrintWriter(fileWriter)) {
+                String name = inventory.getName(slot);
+                BigDecimal amount = bank.getCurrentBalance();
+                BigDecimal price = inventory.getPrice(slot);
+                BigDecimal change = amount.subtract(price);
 
-            logFile.println(dateTime + inventory.getName(slot) + " " + slot + amount + " " + change);
+                printWriter.println(date + " " + time + " " + inventory.getName(slot) + " " + slot + amount + " " + change);
 
-        }catch (Exception e) {
-            System.out.println("An error occurred");
+            } catch (Exception e) {
+                System.out.println("An error occurred");
         }
     }
 
     public void logChange(BigDecimal balance) {
-        try {
 
-            logFile.println(dateTime + "GIVE CHANGE: " + balance + " " + 0);
+        try(FileWriter fileWriter = new FileWriter(newFile);
+            PrintWriter printWriter = new PrintWriter(fileWriter)) {
+            printWriter.println(date + " " + time + " "  + "GIVE CHANGE: " + balance + " " + 0);
 
         }catch (Exception e) {
             System.out.println("An error occurred");

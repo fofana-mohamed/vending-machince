@@ -5,15 +5,18 @@ import com.techelevator.Finance.SalesReport;
 import com.techelevator.Inventory.Inventory;
 import com.techelevator.UI.UserInput;
 import com.techelevator.UI.UserOutput;
+import com.techelevator.Finance.Log;
 
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public class VendingMachineApplication {
 
-    public void run() {
+    public void run() throws FileNotFoundException {
 
+        Log log = new Log();
         UserInput input = new UserInput();
         UserOutput output = new UserOutput();
         Bank bank = new Bank(new BigDecimal(0));
@@ -38,6 +41,7 @@ public class VendingMachineApplication {
                     // Feed Money
                     if(purchaseChoice == 1) {
                         input.feedMoney(bank);
+                        log.logFeed(bank.getCurrentBalance(), bank);
                     }
 
                     // Select Product
