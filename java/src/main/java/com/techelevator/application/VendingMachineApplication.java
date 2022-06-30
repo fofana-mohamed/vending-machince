@@ -63,6 +63,7 @@ public class VendingMachineApplication {
             // Exit
             else {
                 output.displaySalesReport(inventory,salesReport);
+                output.exit();
                 break;
             }
 
