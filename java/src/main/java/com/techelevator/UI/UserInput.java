@@ -2,13 +2,19 @@ package com.techelevator.UI;
 
 import com.techelevator.Inventory.Inventory;
 import com.techelevator.Finance.Bank;
+import com.techelevator.Finance.Log;
 
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class UserInput {
 
     private Scanner input = new Scanner(System.in);
+    Log log = new Log();
+
+    public UserInput() throws FileNotFoundException {
+    }
 
     public int homeScreen(){
         while(true){
@@ -59,6 +65,7 @@ public class UserInput {
             if(bank.isMoneyValid(strMoney)) {
                 BigDecimal money = new BigDecimal(strMoney);
                 bank.addToBalance(money);
+                log.logFeed(money,bank);
                 return;
             }
             else {
@@ -68,7 +75,7 @@ public class UserInput {
         }
     }
 
-    public String selectProduct(Inventory inventory){
+    public String selectProduct(Inventory inventory, Bank bank){
         //UserOutput.displayItems();
         System.out.println();
         System.out.println("Which item would you like to purchase? Please input a valid slot number.");
@@ -84,11 +91,16 @@ public class UserInput {
                     System.out.println();
                     System.out.println(inventory.getSound(slot));
                     System.out.println();
+                    log.logSale(slot,inventory,bank);
                     return slot;
                 }
             }
         }
         System.out.println("Invalid slot number: please try again.");
         return "";
+    }
+
+    public void recordClosedTransaction(Bank bank) {
+        log.logChange(bank.getCurrentBalance());
     }
 }
