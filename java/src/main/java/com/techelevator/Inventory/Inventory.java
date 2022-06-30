@@ -1,7 +1,9 @@
 package com.techelevator.Inventory;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +24,11 @@ public class Inventory {
     //Class Methods
     private void lineSplitter(List<String> list) {
         itemList = new ArrayList<>();
+        numberQuantity = new HashMap<>();
+        numberPrice = new HashMap<>();
+        numberName = new HashMap<>();
+        numberType = new HashMap<>();
+
         for (String element : list) {
             String[] hold = element.split("\\|");
             itemList.add(hold[0]);
