@@ -50,7 +50,7 @@ public class VendingMachineApplication {
                     // Finish Transaction
                     else if(purchaseChoice == 3){
                         input.recordClosedTransaction(bank);
-                        if(bank.finishTransaction(itemsWanted, inventory, output)) {
+                        if(bank.finishTransaction(itemsWanted, inventory, output, bank)) {
                             for(String item: itemsWanted) {
                                 salesReport.addToArchives(item, 1);
                             }

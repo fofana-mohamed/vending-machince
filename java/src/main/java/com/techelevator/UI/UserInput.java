@@ -15,7 +15,7 @@ public class UserInput {
 
     public UserInput() throws FileNotFoundException {
     }
-    private final Scanner input = new Scanner(System.in);
+//    private final Scanner input = new Scanner(System.in);
 
 
     public int homeScreen(){
