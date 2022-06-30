@@ -26,7 +26,7 @@ public class UserOutput {
         System.out.println("Current Money provided: $" + bank.getCurrentBalance());
     }
 
-    public void displaySalesReport(Inventory inventory, SalesReport sales) {
+    public void displaySalesReport(Inventory inventory, SalesReport sales, BigDecimal totalSales) {
         System.out.println();
         System.out.println("Here is a look at what was purchased from the vending machine: ");
         System.out.println();
@@ -41,6 +41,8 @@ public class UserOutput {
                 System.out.println(inventory.getName(slot) + "|" + 0);
             }
         }
+        System.out.println();
+        System.out.println("Total Sales: $" + totalSales);
     }
     public void displayChange(int quarters, int dimes, int nickels, int pennies) {
         System.out.println("You received " + quarters + " quarters, " + dimes + " dimes, " + nickels + " nickels, " + pennies + " pennies in change for your transaction");

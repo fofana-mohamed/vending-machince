@@ -15,6 +15,8 @@ public class UserInput {
 
     public UserInput() throws FileNotFoundException {
     }
+    private final Scanner input = new Scanner(System.in);
+
 
     public int homeScreen(){
         while(true){
@@ -28,7 +30,7 @@ public class UserInput {
             System.out.println("Input number corresponding to what you want to do:");
             System.out.println();
             String destination = input.nextLine();
-            if(destination.equals("1") || destination.equals("2") || destination.equals("3")) {
+            if(destination.equals("1") || destination.equals("2") || destination.equals("3") || destination.equals("4")) {
                 return Integer.parseInt(destination);
             }
             else System.out.println("Input was not valid: please try again");
@@ -86,8 +88,13 @@ public class UserInput {
                     System.out.println("Item is out stock: please pick a different item.");
                     return "";
                 }
+                if(bank.getCurrentBalance().compareTo(inventory.getPrice(slot)) < 0) {
+                    System.out.println("You do not have enough money for this purchase.");
+                    return "";
+                }
                 else {
                     inventory.changeQuantity(slot, inventory.getQuantity(slot) - 1);
+                    bank.addToBalance(inventory.getPrice(slot).multiply(new BigDecimal(-1)));
                     System.out.println();
                     System.out.println(inventory.getSound(slot));
                     System.out.println();
