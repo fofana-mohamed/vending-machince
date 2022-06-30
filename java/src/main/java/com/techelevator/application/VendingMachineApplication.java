@@ -25,7 +25,7 @@ public class VendingMachineApplication {
 
             // Display Items
             if(userChoice == 1){
-                output.displayItems();
+                output.displayItems(inventory);
             }
             // Purchase
             else if(userChoice == 2) {
