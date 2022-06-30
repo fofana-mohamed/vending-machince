@@ -1,4 +1,4 @@
-package com.techelevator.application;
+package com.techelevator.Finance;
 
 import com.techelevator.Inventory.Inventory;
 import com.techelevator.UI.UserOutput;
@@ -42,15 +42,15 @@ public class Bank {
             BigDecimal dime = new BigDecimal("0.1");
             BigDecimal nickel = new BigDecimal("0.05");
 
-            BigDecimal numQuarters = change.divide(quarter, RoundingMode.FLOOR);
-            change = change.subtract(numQuarters.multiply(quarter));
-            BigDecimal numDimes = change.divide(dime, RoundingMode.FLOOR);
-            change = change.subtract(numDimes.multiply(dime));
-            BigDecimal numNickels = change.divide(nickel, RoundingMode.FLOOR);
-            change = change.subtract(numNickels.multiply(nickel));
+            int numQuarters = change.divide(quarter, RoundingMode.FLOOR).intValue();
+            change = change.subtract(BigDecimal.valueOf(numQuarters).multiply(quarter));
+            int numDimes = change.divide(dime, RoundingMode.FLOOR).intValue();
+            change = change.subtract(BigDecimal.valueOf(numDimes).multiply(dime));
+            int numNickels = change.divide(nickel, RoundingMode.FLOOR).intValue();
+            change = change.subtract(BigDecimal.valueOf(numNickels).multiply(nickel));
             BigDecimal numPennies = change.multiply(new BigDecimal(100));
 
-            //output.displayChange(numQuarters, numDimes, numNickels, numPennies);
+            output.displayChange(numQuarters, numDimes, numNickels, numPennies.intValue());
             this.currentBalance = BigDecimal.valueOf(0);
             return true;
 

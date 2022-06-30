@@ -1,7 +1,7 @@
 package com.techelevator.UI;
 
 import com.techelevator.Inventory.Inventory;
-import com.techelevator.application.Bank;
+import com.techelevator.Finance.Bank;
 
 import java.math.BigDecimal;
 import java.util.Scanner;
@@ -12,10 +12,13 @@ public class UserInput {
 
     public int homeScreen(){
         while(true){
+            System.out.println();
             System.out.println("(1) Display Vending Machine Items");
             System.out.println("(2) Purchase");
             System.out.println("(3) Exit");
+            System.out.println();
             System.out.println("Input number corresponding to what you want to do:");
+            System.out.println();
             String destination = input.nextLine();
             if(destination.equals("1") || destination.equals("2") || destination.equals("3")) {
                 return Integer.parseInt(destination);
@@ -24,15 +27,16 @@ public class UserInput {
         }
     }
 
-    public int purchaseScreen(Bank bank){
+    public int purchaseScreen(Bank bank, UserOutput output){
         while(true){
             System.out.println("(1) Feed Money");
             System.out.println("(2) Select Product");
             System.out.println("(3) Finish Transaction");
+            System.out.println("(4) Go Back");
             System.out.println();
-            System.out.println("Current Money Provided: $" + bank.getCurrentBalance());
+            output.showCurrentBalance(bank);
             String destination = input.nextLine();
-            if(destination.equals("1") || destination.equals("2") || destination.equals("3")) {
+            if(destination.equals("1") || destination.equals("2") || destination.equals("3") || destination.equals("4")) {
                 return Integer.parseInt(destination);
             }
             else {
@@ -62,6 +66,7 @@ public class UserInput {
         String slot = input.nextLine();
         for(String item: inventory.getItemList()) {
             if(slot.equals(item)){
+                System.out.println(inventory.getQuantity(slot));
                 if(inventory.getQuantity(slot) == 0) {
                     System.out.println("Item is out stock: please try again.");
                     return "";

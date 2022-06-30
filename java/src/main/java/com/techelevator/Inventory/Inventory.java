@@ -33,7 +33,7 @@ public class Inventory {
             String[] hold = element.split("\\|");
             itemList.add(hold[0]);
             numberName.put(hold[0], hold[1]);
-            numberPrice.put(hold[0], BigDecimal.valueOf(Integer.parseInt(hold[2])));
+            numberPrice.put(hold[0], BigDecimal.valueOf(Double.parseDouble(hold[2])));
             numberType.put(hold[0], hold[3]);
             numberQuantity.put(hold[0], 5);
         }
