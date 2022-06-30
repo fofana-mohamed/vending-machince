@@ -16,7 +16,7 @@ public class InventoryLoader {
 
     //Class Methods
     private void loadInventory() {
-        File productFile = new File("vendingmachine.csv");
+        File productFile = new File("C:\\Users\\Student\\workspace\\green-module-1-week-4-pair-5\\java\\vendingmachine.csv");
         productLine = new ArrayList<>();
 
         try (Scanner dataInput = new Scanner(productFile)) {

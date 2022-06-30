@@ -1,7 +1,8 @@
 package com.techelevator.application;
 
+import com.techelevator.Finance.Bank;
+import com.techelevator.Finance.SalesReport;
 import com.techelevator.Inventory.Inventory;
-import com.techelevator.Inventory.InventoryLoader;
 import com.techelevator.UI.UserInput;
 import com.techelevator.UI.UserOutput;
 
@@ -17,6 +18,8 @@ public class VendingMachineApplication {
         UserOutput output = new UserOutput();
         Bank bank = new Bank(new BigDecimal(0));
         Inventory inventory = new Inventory();
+        List<String> itemsWanted = new ArrayList<>();
+        SalesReport salesReport = new SalesReport();
 
         while(true) {
             // display home screen and get user choice
@@ -29,26 +32,37 @@ public class VendingMachineApplication {
             }
             // Purchase
             else if(userChoice == 2) {
+                while (true){
+                    int purchaseChoice = input.purchaseScreen(bank, output);
 
-                int purchaseChoice = input.purchaseScreen(bank);
+                    // Feed Money
+                    if(purchaseChoice == 1) {
+                        input.feedMoney(bank);
+                    }
 
-                // Feed Money
-                if(purchaseChoice == 1) {
-                    input.feedMoney(bank);
-                }
+                    // Select Product
+                    else if(purchaseChoice == 2) {
+                        String item = input.selectProduct(inventory);
+                        if(item != "") itemsWanted.add(item);
+                    }
 
-                // Select Product
-                else if(purchaseChoice == 2) {
-                    input.selectProduct(inventory);
-                }
+                    // Finish Transaction
+                    else if(purchaseChoice == 3){
+                        if(bank.finishTransaction(itemsWanted, inventory, output)) {
+                            for(String item: itemsWanted) {
+                                salesReport.addToArchives(item, 1);
+                            }
+                        }
+                        itemsWanted = new ArrayList<>();
+                        break;
+                    }
 
-                // Finish Transaction
-                else{
-                    break;
+                    else break;
                 }
             }
             // Exit
             else {
+                output.displaySalesReport(inventory,salesReport);
                 break;
             }
 
