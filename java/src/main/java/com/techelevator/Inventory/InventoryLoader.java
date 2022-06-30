@@ -8,7 +8,6 @@ import java.util.Scanner;
 public class InventoryLoader {
     //Instance variables
     private List<String > productLine;
-    File productFile = new File("vendingmachine.csv");
 
     //Constructor
     public InventoryLoader() {
@@ -17,6 +16,7 @@ public class InventoryLoader {
 
     //Class Methods
     private void loadInventory() {
+        File productFile = new File("vendingmachine.csv");
         productLine = new ArrayList<>();
 
         try (Scanner dataInput = new Scanner(productFile)) {
