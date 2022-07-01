@@ -38,10 +38,10 @@ public class Log {
     public void logSale(String slot, Inventory inventory, Bank bank) {
         String name = inventory.getName(slot);
         BigDecimal amount = bank.getCurrentBalance();
-        BigDecimal price = inventory.getPrice(slot);
-        BigDecimal change = amount.subtract(price);
+        BigDecimal beginningBalance = inventory.getPrice(slot).add(bank.getCurrentBalance());
+//        BigDecimal change = amount.subtract(price);
 
-        String log = date + " " + time + " " + inventory.getName(slot) + " " + slot + amount + " " + change;
+        String log = date + " " + time + " " + inventory.getName(slot) + " " + slot + " " + beginningBalance + " " + amount;
 
         logs.add(log);
 //        try (FileWriter fileWriter = new FileWriter(newFile);
