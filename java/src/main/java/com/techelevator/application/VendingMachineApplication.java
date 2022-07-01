@@ -15,6 +15,7 @@ public class VendingMachineApplication {
 
     public void run() throws IOException {
 
+        // Create instances of the classes, and initialize the total sales to 0.
         UserInput input = new UserInput();
         UserOutput output = new UserOutput();
         Bank bank = new Bank(new BigDecimal(0));
@@ -28,21 +29,25 @@ public class VendingMachineApplication {
             int userChoice = input.homeScreen();
 
 
-            // Display Items
+            // Displays all of the items in the inventory
             if(userChoice == 1){
                 output.displayItems(inventory);
             }
+
             // Purchase
             else if(userChoice == 2) {
+
                 while (true){
+                    // Display the purchase screen, and get user input
                     int purchaseChoice = input.purchaseScreen(bank, output);
 
-                    // Feed Money
+                    // Prompts the user to input money into the system.
                     if(purchaseChoice == 1) {
                         input.feedMoney(bank);
                     }
 
-                    // Select Product
+                    // Prompts the user to select the product that they want to buy. Subtracts the purchase from the
+                    // current balance of the bank, and adds the purchase to total sales.
                     else if(purchaseChoice == 2) {
                         String item = input.selectProduct(inventory, bank);
                         if(!item.equals("")) {
@@ -51,7 +56,8 @@ public class VendingMachineApplication {
                         }
                     }
 
-                    // Finish Transaction
+                    // Finishes the transaction by logging all of the actions in the Log.txt file, returns the change to
+                    // the user, and restarts the banking balance and items wanted to empty/0.
                     else if(purchaseChoice == 3){
                         input.recordClosedTransaction(bank);
                         bank.finishTransaction(itemsWanted, inventory, output, bank);
@@ -61,12 +67,22 @@ public class VendingMachineApplication {
                         itemsWanted = new ArrayList<>();
                         break;
                     }
-                    else break;
+
+                    // Return to Home Screen
+                    else if(purchaseChoice == 4) {
+                        break;
+                    }
+
                 }
+
             }
+
+            // Prints out the total amount of sales for each item, and the total amount of money spent at the vending
+            // machine per run. This option is private and is not displayed to the user.
             else if (userChoice == 4) {
                 output.displaySalesReport(inventory,salesReport,totalSales);
             }
+
             // Exit
             else {
                 output.exit();
@@ -74,5 +90,7 @@ public class VendingMachineApplication {
             }
 
         }
+
     }
+
 }
