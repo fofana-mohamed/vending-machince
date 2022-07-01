@@ -9,23 +9,26 @@ import com.techelevator.Inventory.Inventory;
 import com.techelevator.Finance.Bank;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class Log {
 
     private File newFile = new File("log.txt");
-    private LocalDate date = LocalDate.now();
-    private LocalTime time = LocalTime.now();
+
+    private LocalDateTime dateTime = LocalDateTime.now();
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss a");
     Queue<String> logs = new LinkedList<>();
     public Log() throws FileNotFoundException {
     }
 
-    public void logFeed(BigDecimal amount, Bank bank) {
-        String log =date + " " + time + " " + "FEED MONEY: " + amount + " " + bank.getCurrentBalance();
+    public String logFeed(BigDecimal amount, Bank bank) {
+        String log = formatter.format(dateTime) + " " + "FEED MONEY: " + amount + " " + bank.getCurrentBalance();
         logs.add(log);
 //        try(FileWriter fileWriter = new FileWriter(newFile);
 //            PrintWriter printWriter = new PrintWriter(fileWriter)) {
@@ -33,15 +36,17 @@ public class Log {
 //        }catch (Exception e) {
 //            System.out.println("An error occurred");
 //        }
+        return log;
     }
 
-    public void logSale(String slot, Inventory inventory, Bank bank) {
+    public String logSale(String slot, Inventory inventory, Bank bank) {
         String name = inventory.getName(slot);
         BigDecimal amount = bank.getCurrentBalance();
-        BigDecimal beginningBalance = inventory.getPrice(slot).add(bank.getCurrentBalance());
+        BigDecimal price = inventory.getPrice(slot);
+        BigDecimal currentBalance = bank.getCurrentBalance();
 //        BigDecimal change = amount.subtract(price);
 
-        String log = date + " " + time + " " + inventory.getName(slot) + " " + slot + " " + beginningBalance + " " + amount;
+        String log = formatter.format(dateTime) + " " + inventory.getName(slot) + " " + slot + " " + price + " " + amount;
 
         logs.add(log);
 //        try (FileWriter fileWriter = new FileWriter(newFile);
@@ -56,11 +61,12 @@ public class Log {
 //            } catch (Exception e) {
 //                System.out.println("An error occurred");
 //        }
+        return log;
     }
 
-    public void logChange(BigDecimal balance) {
+    public String logChange(BigDecimal balance) {
 
-        String log = date + " " + time + " "  + "GIVE CHANGE: " + balance + " " + 0;
+        String log = formatter.format(dateTime) + " GIVE CHANGE: " + balance.setScale(2, RoundingMode.FLOOR) + " " + 0;
         logs.add(log);
 //        try(FileWriter fileWriter = new FileWriter(newFile);
 //            PrintWriter printWriter = new PrintWriter(fileWriter)) {
@@ -69,6 +75,7 @@ public class Log {
 //        }catch (Exception e) {
 //            System.out.println("An error occurred");
 //        }
+        return log;
     }
 
     public void loadLogs() {
