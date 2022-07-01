@@ -137,7 +137,7 @@ public class UserInput {
     }
 
     public void recordClosedTransaction(Bank bank) {
-        // logs the current balance of the bank
+        // logs the change into the text file
         log.logChange(bank.getCurrentBalance());
         log.loadLogs();
     }

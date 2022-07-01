@@ -3,6 +3,7 @@ package com.techelevator.Finance;
 import com.techelevator.Inventory.Inventory;
 import com.techelevator.UI.UserOutput;
 
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
@@ -10,12 +11,14 @@ import java.util.List;
 public class Bank {
 
     private BigDecimal currentBalance;
+    private BigDecimal beginningBalance;
 
     public BigDecimal getCurrentBalance(){
         return currentBalance;
     }
 
     public Bank(BigDecimal currentBalance){
+        beginningBalance = currentBalance;
         this.currentBalance = currentBalance;
     }
 
@@ -39,7 +42,7 @@ public class Bank {
         return true;
     }
 
-    public BigDecimal finishTransaction(List<String> itemsWanted, Inventory inventory, UserOutput output, Bank bank){
+    public BigDecimal finishTransaction(List<String> itemsWanted, Inventory inventory, UserOutput output, Bank bank)  {
         // Add up the total cost of all of the items that the user got
         BigDecimal totalCost = BigDecimal.valueOf(0);
         for(String item: itemsWanted) {
@@ -83,7 +86,7 @@ public class Bank {
         changeGiven = changeGiven.add(penny.multiply(BigDecimal.valueOf(numPennies)));
 
         // Print out the breakdown of the change given, and reset the current balance to zero for the next user
-        output.displayChange(numQuarters, numDimes, numNickels, numPennies);
+        output.displayChange(numQuarters, numDimes, numNickels, numPennies, bank);
         this.currentBalance = BigDecimal.valueOf(0);
         return changeGiven;
     }
