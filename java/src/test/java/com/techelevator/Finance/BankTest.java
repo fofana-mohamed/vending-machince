@@ -2,7 +2,6 @@ package com.techelevator.Finance;
 
 import com.techelevator.Inventory.Inventory;
 import com.techelevator.UI.UserOutput;
-import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -105,6 +104,7 @@ public class BankTest {
     }
 
     @Test
+    //// This is a really bad test, but it checks that I did correct math in the method
     public void check_finishTransaction(){
         Inventory inventory = new Inventory();
         UserOutput output = new UserOutput();
@@ -119,4 +119,18 @@ public class BankTest {
         assertEquals(message, expected, actual);
     }
 
+    @Test
+    public void check_finishTransaction_multipleItems(){
+        Inventory inventory = new Inventory();
+        UserOutput output = new UserOutput();
+        Bank bank = new Bank(BigDecimal.valueOf(2.75));
+        List<String> itemsWanted = Arrays.asList("A1", "A2", "A3");
+        BigDecimal expected = BigDecimal.valueOf(2.75);
+        BigDecimal actual;
+
+
+        actual = bank.finishTransaction(itemsWanted, inventory, output, bank);
+        String message = "With a starting balance of $10 and having item A1 costing 3.05, your change should be: " + expected;
+        assertEquals(message, expected, actual);
+    }
 }

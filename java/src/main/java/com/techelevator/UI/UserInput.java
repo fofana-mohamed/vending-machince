@@ -14,12 +14,14 @@ public class UserInput {
 
     Log log = new Log();
     Color color = new Color();
-    public UserInput() throws IOException {
+    public UserInput() throws IOException{
     }
-//    private final Scanner input = new Scanner(System.in);
 
 
     public int homeScreen(){
+        // Print out the home screen for the user, and get their input. If the received input is valid, it will take
+        // them to the screen they specified. If the received input is not valid, it will prompt them for another choice
+
         while(true){
             System.out.println();
             System.out.println(color.getTextBlue() + "----------------------------------" + color.getTextReset());
@@ -33,7 +35,8 @@ public class UserInput {
             System.out.print("Please a make a selection...  -->> ");
             String destination = input.nextLine();
             System.out.println();
-            if(destination.equals("1") || destination.equals("2") || destination.equals("3") || destination.equals("4")) {
+            if(destination.equals("1") || destination.equals("2") || destination.equals("3") || destination.equals("4"))
+            {
                 return Integer.parseInt(destination);
             }
             else System.out.println("Input was not valid: please try again");
@@ -41,6 +44,9 @@ public class UserInput {
     }
 
     public int purchaseScreen(Bank bank, UserOutput output){
+        // Print out the purchase screen for the user, and get their input. If the input is valid, it will take them to
+        // the screen they specified. If the received input is not valid, it will prompt them for another choice.
+
         while(true){
             System.out.println();
             System.out.println(color.getTextBlue() + "----------------------------------" + color.getTextReset());
@@ -56,7 +62,8 @@ public class UserInput {
             System.out.println();
             System.out.print("Please a make a selection...  -->> ");
             String destination = input.nextLine();
-            if(destination.equals("1") || destination.equals("2") || destination.equals("3") || destination.equals("4")) {
+            if(destination.equals("1") || destination.equals("2") || destination.equals("3") || destination.equals("4"))
+            {
                 return Integer.parseInt(destination);
             }
             else {
@@ -66,6 +73,10 @@ public class UserInput {
     }
 
     public void feedMoney(Bank bank){
+        // Prompts the user to input a value for the money that they want to use in the system, and checks if the input
+        // is valid. If it is a valid input, the money is added to the bank and the transaction is logged. If it is not,
+        // the user is prompted for a different input
+
         while(true){
             System.out.print("Insert $$$ [$1,$5,$10,$20]  -->> ");
             String strMoney = input.nextLine();
@@ -74,13 +85,12 @@ public class UserInput {
                     BigDecimal money = new BigDecimal(strMoney);
                     bank.addToBalance(money);
                     log.logFeed(money,bank);
-                    return;
                 }
                 else{
                     System.out.println(color.getTextRed() + "!!!Invalid: please try again with " +
                             "a non-negative dollar amount!!!" + color.getTextReset());
-                    return;
                 }
+                return;
             }
             else {
                 System.out.println(color.getTextRed() + "!!!Invalid: please try again " +
@@ -91,6 +101,10 @@ public class UserInput {
     }
 
     public String selectProduct(Inventory inventory, Bank bank){
+        // Prompts the user for which item that they would like to purchase. If the input is valid, it checks to make sure
+        // that the item is in stock and that the user has enough money for it before the user can purchase it. If the
+        // input is not valid, is out of stock, or the user does not have enough money, the user is told the issue.
+
         //UserOutput.displayItems();
         System.out.println();
         System.out.print("Which item would you like to purchase? Please input a valid slot number...  -->> ");
@@ -123,6 +137,7 @@ public class UserInput {
     }
 
     public void recordClosedTransaction(Bank bank) {
+        // logs the current balance of the bank
         log.logChange(bank.getCurrentBalance());
         log.loadLogs();
     }
