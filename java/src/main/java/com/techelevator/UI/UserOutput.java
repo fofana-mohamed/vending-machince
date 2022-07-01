@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 
 public class UserOutput {
 
+    Color color = new Color();
     public void displayItems(Inventory inventory) {
         for (String slot : inventory.getItemList()) {
             String name = inventory.getName(slot);
@@ -23,12 +24,13 @@ public class UserOutput {
         System.out.println("Thank you for your business. Goodbye!");
     }
     public void showCurrentBalance(Bank bank) {
-        System.out.println("Current Money provided: $" + bank.getCurrentBalance());
+        System.out.println("Current Money provided: "
+                + color.getTextGreen() + "[$" + bank.getCurrentBalance() + "]" + color.getTextReset());
     }
 
     public void displaySalesReport(Inventory inventory, SalesReport sales, BigDecimal totalSales) {
         System.out.println();
-        System.out.println("Here is a look at what was purchased from the vending machine: ");
+        System.out.println(color.getTextBlue() + "***Archived Total Sales*** " + color.getTextReset());
         System.out.println();
         for (String slot : inventory.getItemList()) {
             String name = inventory.getName(slot);
@@ -42,7 +44,8 @@ public class UserOutput {
             }
         }
         System.out.println();
-        System.out.println("Total Sales: $" + totalSales);
+        System.out.println("Total Sales: " + color.getTextGreen() +
+                "$" + totalSales + color.getTextReset());
     }
     public void displayChange(int quarters, int dimes, int nickels, int pennies) {
         System.out.println("You received " + quarters + " quarters, " + dimes + " dimes, " + nickels + " nickels, " + pennies + " pennies in change for your transaction");
