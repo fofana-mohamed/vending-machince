@@ -14,7 +14,7 @@ public class UserInput {
     private Scanner input = new Scanner(System.in);
 
     Log log = new Log();
-
+    Color color = new Color();
     public UserInput() throws IOException {
     }
 //    private final Scanner input = new Scanner(System.in);
@@ -23,15 +23,17 @@ public class UserInput {
     public int homeScreen(){
         while(true){
             System.out.println();
-            System.out.println("MAIN MENU");
-            System.out.println("----------------------------------");
+            System.out.println(color.getTextBlue() + "----------------------------------" + color.getTextReset());
+            System.out.println(color.getTextBlue() + "           MAIN MENU              " + color.getTextReset());
+            System.out.println(color.getTextBlue() + "----------------------------------" + color.getTextReset());
             System.out.println("(1) Display Vending Machine Items");
             System.out.println("(2) Purchase");
             System.out.println("(3) Exit");
+            System.out.println(color.getTextBlue() + "----------------------------------" + color.getTextReset());
             System.out.println();
-            System.out.println("Input number corresponding to what you want to do:");
-            System.out.println();
+            System.out.print("Please a make a selection...  -->> ");
             String destination = input.nextLine();
+            System.out.println();
             if(destination.equals("1") || destination.equals("2") || destination.equals("3") || destination.equals("4")) {
                 return Integer.parseInt(destination);
             }
@@ -42,29 +44,31 @@ public class UserInput {
     public int purchaseScreen(Bank bank, UserOutput output){
         while(true){
             System.out.println();
-            System.out.println("PURCHASE MENU");
-            System.out.println("----------------------------------");
+            System.out.println(color.getTextBlue() + "----------------------------------" + color.getTextReset());
+            System.out.println(color.getTextBlue() + "         PURCHASE MENU            " + color.getTextReset());
+            System.out.println(color.getTextBlue() + "----------------------------------" + color.getTextReset());
             System.out.println("(1) Feed Money");
             System.out.println("(2) Select Product");
             System.out.println("(3) Finish Transaction");
             System.out.println("(4) Go Back");
+            System.out.println(color.getTextBlue() + "----------------------------------" + color.getTextReset());
             System.out.println();
             output.showCurrentBalance(bank);
             System.out.println();
-            System.out.println("Input number corresponding to what you want to do:");
+            System.out.print("Please a make a selection...  -->> ");
             String destination = input.nextLine();
             if(destination.equals("1") || destination.equals("2") || destination.equals("3") || destination.equals("4")) {
                 return Integer.parseInt(destination);
             }
             else {
-                System.out.println("Input was not valid: please try again");
+                System.out.println(color.getTextRed() + "!!!Invalid Input: please try again!!!" + color.getTextReset());
             }
         }
     }
 
     public void feedMoney(Bank bank){
         while(true){
-            System.out.println("How much money would you like to input? Please input the money in whole dollar amounts.");
+            System.out.print("Insert $$$ [$1,$5,$10,$20]  -->> ");
             String strMoney = input.nextLine();
             if(bank.isMoneyValid(strMoney)) {
                 if(Integer.parseInt(strMoney) > 0){
@@ -74,12 +78,14 @@ public class UserInput {
                     return;
                 }
                 else{
-                    System.out.println("Input not valid: please try again with a non-negative dollar amount");
+                    System.out.println(color.getTextRed() + "!!!Invalid: please try again with " +
+                            "a non-negative dollar amount!!!" + color.getTextReset());
                     return;
                 }
             }
             else {
-                System.out.println("Input was not valid: please try again with a whole dollar amount");
+                System.out.println(color.getTextRed() + "!!!Invalid: please try again " +
+                        "with a whole dollar amount!!!" + color.getTextReset());
                 System.out.println();
             }
         }
@@ -88,16 +94,18 @@ public class UserInput {
     public String selectProduct(Inventory inventory, Bank bank){
         //UserOutput.displayItems();
         System.out.println();
-        System.out.println("Which item would you like to purchase? Please input a valid slot number.");
+        System.out.print("Which item would you like to purchase? Please input a valid slot number...  -->> ");
         String slot = input.nextLine();
         for(String item: inventory.getItemList()) {
             if(slot.equals(item)){
                 if(inventory.getQuantity(slot) == 0) {
-                    System.out.println("Item is out stock: please pick a different item.");
+                    System.out.println(color.getTextRed() + "Item is out of stock: please " +
+                            "pick a different item." + color.getTextReset());
                     return "";
                 }
                 if(bank.getCurrentBalance().compareTo(inventory.getPrice(slot)) < 0) {
-                    System.out.println("You do not have enough money for this purchase.");
+                    System.out.println(color.getTextYellow() + "!!!You insufficient funds " +
+                            "for this purchase!!!" + color.getTextReset());
                     return "";
                 }
                 else {
@@ -111,7 +119,7 @@ public class UserInput {
                 }
             }
         }
-        System.out.println("Invalid slot number: please try again.");
+        System.out.println(color.getTextRed() + "Invalid slot number: please try again." + color.getTextReset());
         return "";
     }
 
