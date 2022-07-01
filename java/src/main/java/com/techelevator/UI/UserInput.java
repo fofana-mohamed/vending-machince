@@ -110,7 +110,7 @@ public class UserInput {
                 }
                 else {
                     inventory.changeQuantity(slot, inventory.getQuantity(slot) - 1);
-                    bank.addToBalance(inventory.getPrice(slot).multiply(new BigDecimal(-1)));
+                    bank.subtractFromBalance(inventory.getPrice(slot));
                     System.out.println();
                     System.out.println(inventory.getSound(slot));
                     System.out.println();
