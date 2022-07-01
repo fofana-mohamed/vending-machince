@@ -4,7 +4,6 @@ import com.techelevator.Inventory.Inventory;
 import com.techelevator.Finance.Bank;
 import com.techelevator.Finance.Log;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Scanner;

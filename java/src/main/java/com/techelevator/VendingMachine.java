@@ -2,7 +2,6 @@ package com.techelevator;
 
 import com.techelevator.application.VendingMachineApplication;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class VendingMachine {

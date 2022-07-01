@@ -1,11 +1,15 @@
 package com.techelevator.Inventory;
 
-import java.io.File;
 import java.math.BigDecimal;
 import java.util.*;
 
+/*
+    This class will take a list of product lines
+    and work to manage the vending machine's inventory
+ */
+
 public class Inventory {
-    //Instance Variable
+    //Instance Variables
     private Map<String, String> numberName;
     private Map<String, BigDecimal> numberPrice;
     private Map<String, String> numberType;
@@ -19,6 +23,12 @@ public class Inventory {
     }
 
     //Class Methods
+
+    /*
+        Splits the list of lined from the input file and loads
+        each line into 4 different map with the slot number as
+        their keys.
+     */
     private void lineSplitter(List<String> list) {
         itemList = new ArrayList<>();
         numberQuantity = new HashMap<>();
@@ -56,6 +66,11 @@ public class Inventory {
         return false;
     }
 
+
+    /*
+        returns the sound of each slot number
+        depending on their food type.
+     */
     public String getSound(String itemNumber) {
         String type = numberType.get(itemNumber).toLowerCase(Locale.ROOT);
 
@@ -76,6 +91,9 @@ public class Inventory {
 
     public List<String> getItemList() {return itemList;}
 
+    /*
+        Changes/updates the quantity of each slot number
+     */
     public int changeQuantity(String itemNumber, int quantity) {
         int currentQuantity = numberQuantity.get(itemNumber);
         if (quantity > currentQuantity) {return -1;}
