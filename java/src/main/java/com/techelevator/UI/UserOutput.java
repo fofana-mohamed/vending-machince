@@ -14,7 +14,9 @@ public class UserOutput {
             String name = inventory.getName(slot);
             BigDecimal price = inventory.getPrice(slot);
 
-            System.out.println(slot + "|" + name + "|" + price);
+            if (inventory.getQuantity(slot) != 0) {
+                System.out.println(slot + "|" + name + "|" + price);
+            }
         }
     }
 

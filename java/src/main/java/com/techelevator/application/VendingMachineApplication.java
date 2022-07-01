@@ -39,7 +39,7 @@ public class VendingMachineApplication {
 
                 while (true){
                     // Display the purchase screen, and get user input
-                    int purchaseChoice = input.purchaseScreen(bank, output);
+                    int purchaseChoice = input.purchaseScreen(bank, output, inventory);
 
                     // Prompts the user to input money into the system.
                     if(purchaseChoice == 1) {

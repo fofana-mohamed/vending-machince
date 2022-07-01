@@ -43,7 +43,7 @@ public class UserInput {
         }
     }
 
-    public int purchaseScreen(Bank bank, UserOutput output){
+    public int purchaseScreen(Bank bank, UserOutput output, Inventory inventory){
         // Print out the purchase screen for the user, and get their input. If the input is valid, it will take them to
         // the screen they specified. If the received input is not valid, it will prompt them for another choice.
 
@@ -57,6 +57,8 @@ public class UserInput {
             System.out.println("(3) Finish Transaction");
             System.out.println("(4) Go Back");
             System.out.println(color.getTextBlue() + "----------------------------------" + color.getTextReset());
+            System.out.println();
+            output.displayItems(inventory);
             System.out.println();
             output.showCurrentBalance(bank);
             System.out.println();
@@ -80,7 +82,9 @@ public class UserInput {
         while(true){
             System.out.print("Insert $$$ [$1,$5,$10,$20]  -->> ");
             String strMoney = input.nextLine();
-            if(bank.isMoneyValid(strMoney)) {
+            boolean isValidBill = strMoney.equals("1") || strMoney.equals("5") || strMoney.equals("10")
+                                                || strMoney.equals("20");
+            if(bank.isMoneyValid(strMoney) && isValidBill) {
                 if(Integer.parseInt(strMoney) > 0){
                     BigDecimal money = new BigDecimal(strMoney);
                     bank.addToBalance(money);
@@ -117,7 +121,7 @@ public class UserInput {
                     return "";
                 }
                 if(bank.getCurrentBalance().compareTo(inventory.getPrice(slot)) < 0) {
-                    System.out.println(color.getTextYellow() + "!!!You insufficient funds " +
+                    System.out.println(color.getTextYellow() + "!!!You have insufficient funds " +
                             "for this purchase!!!" + color.getTextReset());
                     return "";
                 }
